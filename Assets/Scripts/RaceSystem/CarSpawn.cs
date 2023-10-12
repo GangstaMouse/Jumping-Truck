@@ -30,7 +30,7 @@ public class CarSpawn : MonoBehaviour
         carPrefab = carData.Prefab;
         SpawnCar();
 
-        if (Application.isMobilePlatform)
+        if (Application.isMobilePlatform || Application.isEditor)
             mobileUIControlsInstance = Instantiate(mobileControlsUIPrefab);
     }
 

@@ -2,14 +2,15 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Skybox Material
   m_Shader: {fileID: -6465566751694194690, guid: 39662551308eb2d4e9a421cd69c9d363, type: 3}
-  m_ShaderKeywords: 
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -51,6 +52,8 @@ Material:
     - Test: 1.49
     - Wind_Speed: 0.01
     - Zenit_Power: 0.01
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - Bottom_Color: {r: 0.16981125, g: 0.16981125, b: 0.16981125, a: 1}
     - Clouds_Tile: {r: 3.56, g: 1, b: 0, a: 0}
@@ -59,3 +62,16 @@ Material:
     - Zenit_Color: {r: 0.29411766, g: 0.26666668, b: 0.2509804, a: 1}
     - _Color: {r: 0.2924528, g: 0.26480308, b: 0.2524475, a: 1}
   m_BuildTextureStacks: []
+--- !u!114 &970279487954899623
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5

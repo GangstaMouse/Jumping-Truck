@@ -53,8 +53,10 @@ public class FPSCounter : MonoBehaviour
         display.Minimum = minimum;
     }
 
+    [System.Obsolete("Broken matrix")]
     private void OnGUI()
     {
+        return;
         float scale = ((Screen.width / 1145) + (Screen.height / 644)) / 2f;
         float posY = 5f;
 
