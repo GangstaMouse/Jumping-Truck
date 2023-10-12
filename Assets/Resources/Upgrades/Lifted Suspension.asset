@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c6c481bcad02734689c1469dd2d4603, type: 3}
+  m_Name: Lifted Suspension
+  m_EditorClassIdentifier: 
+  unlockRequirements: level_7
+  id: f4649d44-3543-455b-8c20-11cc9a96c3d0
+  Price: 1250
+  ModelPrefab: {fileID: 0}
+  AddMaxLenght: 0.1

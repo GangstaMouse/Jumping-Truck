@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d09a9b8aafb33f429b81ff5b48cff2f, type: 3}
+  m_Name: Stock Rear Bumper
+  m_EditorClassIdentifier: 
+  unlockRequirements: 
+  id: 609a1b68-8d34-4c97-acde-c709b1b2479a
+  Price: 0
+  ModelPrefab: {fileID: 5622755243424807332, guid: 6435fd990ab893f4380cb41648b74a02, type: 3}

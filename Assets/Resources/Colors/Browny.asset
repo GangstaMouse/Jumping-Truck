@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d34904de2664e684f8faf462c762e671, type: 3}
+  m_Name: Browny
+  m_EditorClassIdentifier: 
+  unlockRequirements: 
+  id: 2584802c-a3a9-4035-ba3e-5cffa4efbb06
+  Color: {r: 0.41509432, g: 0.21478839, b: 0.0763617, a: 1}

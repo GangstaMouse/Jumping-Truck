@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a478f06cf3302b4f9608b2a74730d18, type: 3}
+  m_Name: Horn
+  m_EditorClassIdentifier: 
+  id: 930fcbca-0662-45b9-848a-84191c827ffe
+  Name: Horn
+  Price: 129
+  Prefab: {fileID: 919132149155446097, guid: 21fa569efba16c64bb1c93c472415541, type: 3}

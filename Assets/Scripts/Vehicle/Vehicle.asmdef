@@ -1,0 +1,21 @@
+{
+    "name": "Vehicle",
+    "rootNamespace": "",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:aa589dae9fdf9f34bb678508428baa35",
+        "GUID:8fcfd07a06909a54d87807f11a815ffc",
+        "GUID:4307f53044263cf4b835bd812fc161a4",
+        "GUID:0da1dbd9b711d484a9f39e89f2d17032",
+        "GUID:3b763d25d5e18cf4aa87dec94e260c6a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
