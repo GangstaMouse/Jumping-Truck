@@ -1,37 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEngine;
 
-public class CheckpointConstructor : MonoBehaviour
+class CheckpointConstructor : MonoBehaviour
 {
-    [SerializeField] private float width = 3f;
+    [SerializeField] private float m_Width = 3f;
 
-    [SerializeField] private Transform leftMarker;
-    [SerializeField] private Transform rightMarker;
+    [SerializeField] private Transform m_LeftMarker;
+    [SerializeField] private Transform m_RightMarker;
 
-    #if UNITY_EDITOR
     private void OnValidate()
     {
-        if (leftMarker != null)
+        if (m_LeftMarker != null)
         {
-            Bounds leftMarkerBounds = leftMarker.GetComponent<MeshFilter>().sharedMesh.bounds;
-            leftMarker.localPosition = new Vector3((-width / 2f) - leftMarkerBounds.extents.x, leftMarker.localPosition.y, leftMarker.localPosition.z);
+            Bounds leftMarkerBounds = m_LeftMarker.GetComponent<MeshFilter>().sharedMesh.bounds;
+            m_LeftMarker.localPosition = new Vector3((-m_Width / 2f) - leftMarkerBounds.extents.x, m_LeftMarker.localPosition.y, m_LeftMarker.localPosition.z);
         }
 
-        if (rightMarker != null)
+        if (m_RightMarker != null)
         {
-            Bounds rightMarkerBounds = leftMarker.GetComponent<MeshFilter>().sharedMesh.bounds;
-            rightMarker.localPosition = new Vector3((width / 2f) + rightMarkerBounds.extents.x, rightMarker.localPosition.y, rightMarker.localPosition.z);
+            Bounds rightMarkerBounds = m_LeftMarker.GetComponent<MeshFilter>().sharedMesh.bounds;
+            m_RightMarker.localPosition = new Vector3((m_Width / 2f) + rightMarkerBounds.extents.x, m_RightMarker.localPosition.y, m_RightMarker.localPosition.z);
         }
 
         BoxCollider boxCollider = GetComponent<BoxCollider>();
         if (boxCollider == null)
             return;
 
-        Bounds markerBounds = leftMarker.GetComponent<MeshFilter>().sharedMesh.bounds;
+        Bounds markerBounds = m_LeftMarker.GetComponent<MeshFilter>().sharedMesh.bounds;
 
         boxCollider.center = markerBounds.center;
-        boxCollider.size = new Vector3(width, markerBounds.size.y, markerBounds.size.z);
+        boxCollider.size = new Vector3(m_Width, markerBounds.size.y, markerBounds.size.z);
     }
 
     private void OnDrawGizmos()
@@ -44,5 +42,5 @@ public class CheckpointConstructor : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(boxCollider.center, boxCollider.size);
     }
-    #endif
 }
+#endif

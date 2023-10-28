@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1cc836515446b46bd41bfda84978cc, type: 3}
   m_Name: Scene 1
   m_EditorClassIdentifier: 
-  id: 5eb6c828-32bd-422a-b541-417990878b5f
-  SceneName: Testing
-  PreviewSprite: {fileID: 21300000, guid: 04a757fe70807384bb356bcd6a0c3df2, type: 3}
-  Unlocked: 1
+  m_UnlockRequirements: 
+  <Identifier>k__BackingField: d1917ad4-170f-460c-b6f5-17f6895e7dc1
+  <SceneName>k__BackingField: Testing
+  <PreviewSprite>k__BackingField: {fileID: 21300000, guid: 04a757fe70807384bb356bcd6a0c3df2, type: 3}
+  <Unlocked>k__BackingField: 0

@@ -29,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4169051067339684997}
   - {fileID: 4169051066141394272}
@@ -47,9 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24a4927a2e2f63a4b95d60c4b16f0229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 3
-  leftMarker: {fileID: 4169051067339684997}
-  rightMarker: {fileID: 4169051066141394272}
+  m_Width: 3
+  m_LeftMarker: {fileID: 4169051067339684997}
+  m_RightMarker: {fileID: 4169051066141394272}
 --- !u!65 &4169051066029687004
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -75,10 +76,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d70589c20a36a9347ad4190d9ef355eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 0
-  reached: 0
+  <Active>k__BackingField: 1
+  m_Type: 1
   nextWaypoints: []
-  isFinish: 0
 --- !u!1 &4169051066141394287
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,6 +108,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.822361, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4169051066029687002}
   m_RootOrder: 1
@@ -205,6 +206,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.822361, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4169051066029687002}
   m_RootOrder: 0

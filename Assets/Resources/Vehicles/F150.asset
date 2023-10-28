@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b5613c57f7e4574cae1e050b4e2dfe1, type: 3}
+  m_Name: F150
+  m_EditorClassIdentifier: 
+  m_UnlockRequirements: 
+  <Identifier>k__BackingField: ac8c5497-ed04-445a-93a7-d5f70f82c6b3
+  <Price>k__BackingField: 100
+  Name: F150
+  <DefaultPaintAsset>k__BackingField: {fileID: 11400000, guid: 6de848bc6de02bb4781bc075314881f1, type: 2}
+  <Prefab>k__BackingField: {fileID: 9064614459495860764, guid: d1bcbf77e7e99c843bdb23162ed8d322, type: 3}
+  Speed: 4.9
+  Acceleration: 3.2
+  Suspension: 1.9
+  Handling: 3.4
+  Weight: 5.6

@@ -1,87 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
-    [Header("Settings")]
-    [SerializeField] private bool active;
-    [SerializeField] private bool reached;
+    // [Header("Settings")]
+    [field: SerializeField] public bool Active { get; private set; } = true;
+    [field: SerializeField] public WaypointType Type { get; private set; } = WaypointType.Checkpoint;
 
-    [Header("References")]
-    [SerializeField] private List<Waypoint> nextWaypoints = new List<Waypoint>();
-
-    [SerializeField] bool isFinish;
-
-    private Waypoint prevWaypoint;
+    // [Header("References")]
+    [field: SerializeField] public Waypoint NextWaypoint { get; private set; }
+    public event Action<WaypointType> OnPassed;
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (reached)
-            return;
-
-        CarController car = collider.GetComponentInParent<CarController>();
-
-        if (car != null)
-            SetReach(true);
+        // Test it
+        if (collider.GetComponentInParent<Vehicle>() != null)
+            Reached();
     }
 
-    public void SetActive(bool newActive) => active = newActive;
+    private void Awake() => SetActive(Active);
 
-    public void SetPrevWaypoint(Waypoint waypoint) => prevWaypoint = waypoint;
-
-    public void SetReach(bool newReach)
+    public void SetActive(bool active)
     {
-        reached = newReach;
+        Active = active;
+        enabled = Active;
+    }
 
-        if (!reached)
-            return;
-
+    public void Reached()
+    {
         SetActive(false);
-        if (DoesIsBranch(prevWaypoint))
-            DisableParallelWaypoints();
-            // Debug.Log(this);
-
-        // Временно
-        if (isFinish)
-        {
-            GetComponentInParent<RaceStart>().OverRace();
-        }
-
-        foreach (var waypoint in nextWaypoints)
-        {
-            waypoint.SetPrevWaypoint(this);
-            waypoint.SetActive(true);
-        }
+        OnPassed?.Invoke(Type);
+        if (NextWaypoint)
+            NextWaypoint.SetActive(true);
+        OnPassed = null;
     }
+#if UNITY_EDITOR
 
-    private bool DoesIsBranch(Waypoint waypoint)
-    {
-        if (prevWaypoint != null && waypoint.nextWaypoints.Count > 1)
-            return true;
-
-        return false;
-    }
-
-    private void DisableParallelWaypoints()
-    {
-        List<Waypoint> parallelWaypoints = new List<Waypoint>(prevWaypoint.nextWaypoints);
-        parallelWaypoints.Remove(this);
-
-        foreach (var waypoint in parallelWaypoints)
-            waypoint.SetActive(false);
-    }
-
-    #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(transform.position, 0.3f);
 
-        foreach (var waypoint in nextWaypoints)
-            if (waypoint != null)
-                GizmosLibrary.DrawArrowedLine(transform.position, waypoint.transform.position);
+        if (NextWaypoint != null)
+            GizmosLibrary.DrawArrowedLine(transform.position, NextWaypoint.transform.position);
     }
-    #endif
+#endif
 }
-
-public enum WaypointType { Start, Checkpoint, Finish }

@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Resources/Scene Data")]
-public class SceneData : BaseItemData
+public class SceneData : ItemDataSO
 {
-    public string SceneName = "None";
-    public Sprite PreviewSprite;
-    public bool Unlocked;
+    [field: SerializeField] public string SceneName { get; private set; } = "None";
+    [field: SerializeField] public Sprite PreviewSprite { get; private set; }
+    [field: SerializeField] public bool Unlocked { get; private set; } = false;
+
+    public override string ResourceFolderName => "Levels";
 }

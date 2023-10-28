@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Resources/Race Data")]
-public class RaceData : BaseItemData
+public sealed class RaceData : ItemDataSO
 {
-    public GameObject RacePrefab;
+    [SerializeField] private GameObject m_RacePrefab;
     public string Text = "None";
     public bool Unlocked;
 
-    [Multiline]
-    public string Goal = "time_00:01:00";
-    public int CashReward = 500;
-    public int ExperienceReward = 100;
+    [Multiline] [SerializeField] private string m_Goal = "time_00:01:00";
+    public string Goal => m_Goal;
+    [field: SerializeField] public int CashReward { get; private set; } = 500;
+    [field: SerializeField] public int ExperienceReward { get; private set; } = 100;
 
-    public GameObject CreateRace() => Instantiate(RacePrefab);
+    public override string ResourceFolderName => "Races";
+
+    public GameObject CreateRace() => Instantiate(m_RacePrefab);
 }

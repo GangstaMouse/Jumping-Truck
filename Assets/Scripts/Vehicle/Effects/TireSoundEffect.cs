@@ -1,30 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class TireSoundEffect : MonoBehaviour
+class TireSoundEffect : MonoBehaviour
 {
-    private AudioSource audioSource;
-    private WheelCollider wheelCollider;
+    private Vehicle m_Vehicle;
+    private CustomWheelCollider m_WheelCollider;
+    private AudioSource m_AudioSource;
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
-        wheelCollider = GetComponentInParent<WheelCollider>();
+        m_Vehicle = GetComponentInParent<Vehicle>();
+        m_WheelCollider = GetComponentInParent<CustomWheelCollider>();
+        m_AudioSource = GetComponent<AudioSource>();
     }
 
-    private void OnEnable() => wheelCollider.OnPostPhysics += UpdateSound;
-
-    private void OnDisable() => wheelCollider.OnPostPhysics -= UpdateSound;
+    private void OnEnable() => m_Vehicle.OnLateUpdateVisualEffects += UpdateSound;
+    private void OnDisable() => m_Vehicle.OnLateUpdateVisualEffects -= UpdateSound;
 
     private void UpdateSound()
     {
-        Vector2 slip = new Vector2(wheelCollider.TireSlip.x * 0.7f, wheelCollider.TireSlip.y);
-        float volume = slip.magnitude * (wheelCollider.grounded ? 1f : 0f);
+        Vector2 slip = new float2(m_WheelCollider.CachedTireFrictionForce.x * 0.7f, m_WheelCollider.CachedTireFrictionForce.y) *
+            m_WheelCollider.TireStiffnes;
+        float volume = slip.magnitude * (m_WheelCollider.HasContact ? 2f : 0f);
         float pitch = FunctionsLibrary.MapRangeClamped(volume, 0f, 20f, 0.5f, 2f);
 
-        audioSource.volume = volume;
-        audioSource.pitch = pitch;
+        m_AudioSource.volume = volume;
+        m_AudioSource.pitch = pitch;
     }
 }

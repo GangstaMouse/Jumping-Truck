@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b8d81db0a018c4bb31a2503a3d1c26, type: 3}
   m_Name: Race 1
   m_EditorClassIdentifier: 
-  unlockRequirements: 
-  id: e2969287-fe28-47a9-ad59-076f9d064595
-  RacePrefab: {fileID: 6127321855648293181, guid: c6976a0043e10a74cad58760c192f30e, type: 3}
+  m_UnlockRequirements: 
+  <Identifier>k__BackingField: 08fde2de-faf7-4e0b-ae9a-abba5b18b56d
+  m_RacePrefab: {fileID: 6127321855648293181, guid: c6976a0043e10a74cad58760c192f30e, type: 3}
   Text: Race against time
   Unlocked: 1
-  GoalValue: time_00:01:00
-  CashReward: 500
-  ExperienceReward: 100
+  m_Goal: time_00:01:00
+  <CashReward>k__BackingField: 500
+  <ExperienceReward>k__BackingField: 100

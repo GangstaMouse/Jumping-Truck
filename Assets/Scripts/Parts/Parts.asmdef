@@ -1,0 +1,17 @@
+{
+    "name": "Parts",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3b763d25d5e18cf4aa87dec94e260c6a",
+        "GUID:995159f2d9e2c794eb161ef5af59aac3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

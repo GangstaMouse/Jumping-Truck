@@ -1,18 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class RaceManager : MonoBehaviour
 {
-    public static RaceManager instance { get; private set; }
+    public static RaceManager Instance { get; private set; }
 
-    // New
-    public static RaceData selectedRaceData { get; private set; }
-    private GameObject raceInstance;
-    public static RaceStart activeRace { get; private set; }
-    // ---
-
+    public static RaceData SelectedRaceData { get; private set; }
+    public static RaceStart ActiveRace { get; private set; }
+    private GameObject m_RaceInstanceObject;
 
     public event Action OnRaceOver;
 
@@ -20,97 +16,65 @@ public class RaceManager : MonoBehaviour
     public TimeSpan RaceTime { get; private set; }
 
     // Timer
-    // private Coroutine timer;
-    private float elapsedTime;
-    private bool timerGoing;
+    private float m_ElapsedTime;
+    private bool m_IsTimerRunning;
     public event Action<TimeSpan> OnTimerUpdated;
 
     private void Awake()
     {
-        /* if (instance != null)
+        Instance = this;
+
+        if (SelectedRaceData != null)
         {
-            Destroy(gameObject);
-            return;
+            m_RaceInstanceObject = SelectedRaceData.CreateRace();
+            ActiveRace = m_RaceInstanceObject.GetComponent<RaceStart>();
+
+            ActiveRace.OnRaceOver += RaceOver;
+            ActiveRace.StartRace(SelectedRaceData.Identifier);
+
+            long prevRaceTime;
+            int prevRaceScore;
+            PlayerSavesManager.Race.ReadRaceSaveData(SelectedRaceData.Identifier, out prevRaceTime, out prevRaceScore);
+
+            PrevRaceTime = TimeSpan.FromTicks(prevRaceTime);
         }
-
-        instance = this;
-        DontDestroyOnLoad(gameObject); */
-
-        instance = this;
-        Debug.LogWarning(selectedRaceData);
-
-        BeginRace();
     }
 
-    public static void SelectRace(RaceData raceData) => selectedRaceData = raceData;
+    private void Start()
+    {
+        if (SelectedRaceData != null)
+            BeginRace();
+    }
+
+    public static void SelectRace(RaceData raceData) => SelectedRaceData = raceData;
 
     public void BeginRace()
     {
-        if (selectedRaceData == null)
-            return;
+        Vehicle vehicle = FindObjectOfType<Vehicle>();
+        vehicle.gameObject.AddComponent<PlayerInputHandlerInstancer>();
+        vehicle.GetComponentInChildren<Camera>(true).gameObject.SetActive(true);
 
-        raceInstance = selectedRaceData.CreateRace();
-        activeRace = raceInstance.GetComponentInChildren<RaceStart>();
-
-        // FindObjectOfType<CarSpawn>().Initialize(PlayerDataProcessor.GetSelectedCarData().Prefab, null);
-        // Переделать
-        activeRace.OnRaceOver += RaceOver;
-        activeRace.StartRace(selectedRaceData.ID);
-
-        long prevRaceTime;
-        int prevRaceScore;
-        PlayerDataProcessor.ReadRaceSaveData(selectedRaceData.ID, out prevRaceTime, out prevRaceScore);
-
-        PrevRaceTime = TimeSpan.FromTicks(prevRaceTime);
         StartTimer();
     }
 
-#region Timer
-    private void StartTimer()
+    #region Timer
+    // Need to test it
+    private async void StartTimer()
     {
-        /* if (timer != null)
-            return; */
+        m_ElapsedTime = 0.0f;
+        m_IsTimerRunning = true;
 
-        elapsedTime = 0f;
-        timerGoing = true;
-
-        // timer = StartCoroutine(UpdateTimer());
-    }
-
-    private void Update() => UpdateTimer();
-
-    private void UpdateTimer()
-    {
-        if (!timerGoing)
-            return;
-
-        elapsedTime += Time.deltaTime;
-        RaceTime = TimeSpan.FromSeconds(elapsedTime);
-        OnTimerUpdated?.Invoke(RaceTime);
-    }
-
-    // private void StopTimer() => StopCoroutine(timer);
-    private void StopTimer()
-    {
-        // StopCoroutine(timer);
-
-        timerGoing = false;
-        elapsedTime += Time.deltaTime;
-        RaceTime = TimeSpan.FromSeconds(elapsedTime);
-        OnTimerUpdated?.Invoke(RaceTime);
-    }
-
-    /* private IEnumerator UpdateTimer()
-    {
-        while (timerGoing)
+        while (m_IsTimerRunning)
         {
-            elapsedTime += Time.deltaTime;
-            RaceTime = TimeSpan.FromSeconds(elapsedTime);
+            m_ElapsedTime += Time.deltaTime;
+            RaceTime = TimeSpan.FromSeconds(m_ElapsedTime);
             OnTimerUpdated?.Invoke(RaceTime);
 
-            yield return null;
+            await Task.Yield();
         }
-    } */
+    }
+
+    private void StopTimer() => m_IsTimerRunning = false;
     #endregion
 
     private void RaceOver(string raceID)
@@ -119,17 +83,17 @@ public class RaceManager : MonoBehaviour
 
         float score = FindObjectOfType<ScoreCalculator>().GetTotalScore();
 
-        // Debug
+#if UNITY_EDITOR
         TimeSpan targetTime;
-        TimeSpan.TryParse(selectedRaceData.Goal, out targetTime);
+        TimeSpan.TryParse(SelectedRaceData.Goal, out targetTime);
         int targetScore;
-        int.TryParse(selectedRaceData.Goal, out targetScore);
+        int.TryParse(SelectedRaceData.Goal, out targetScore);
 
         Debug.LogWarning($"Target Time - {targetTime}");
         Debug.LogWarning($"Current Time - {RaceTime}");
         Debug.LogWarning($"Target Score - {targetScore}");
         Debug.LogWarning($"Current Score - {(int)score}");
-        // ---
+#endif
 
         // Добавить проверку лучшего времени
         /* switch (selectedRaceData.Goal)
@@ -150,27 +114,17 @@ public class RaceManager : MonoBehaviour
                 break;
         } */
 
-        PlayerDataProcessor.WriteRaceCompletion(selectedRaceData, RaceTime, (int)score);
+        PlayerSavesManager.Race.WriteRaceCompletion(SelectedRaceData, RaceTime, (int)score);
 
         // Deactivate car input and reset
-        CarController carController = FindObjectOfType<CarController>();
-        carController.InputEnabled = false;
-        carController.GasInput = 0f;
-        carController.BrakeInput = 1f;
-        carController.SteerInput = 0f;
-        carController.HandbrakeInput = false;
-        carController.ClutchInput = 0f;
+        Vehicle vehicle = FindObjectOfType<Vehicle>();
+        var newInst = vehicle.gameObject.AddComponent<StaticInputHandlerInstancer>();
+        newInst.GasInput = 0;
+        newInst.SteerInput = 0;
+        newInst.BrakeInput = 1;
+        newInst.HandbrakeInput = 1;
 
         OnRaceOver?.Invoke();
-        
-        // Del();
         SelectRace(null);
-    }
-
-    private void Del()
-    {
-        OnRaceOver = null;
-        PrevRaceTime = new TimeSpan();
-        RaceTime = new TimeSpan();
     }
 }

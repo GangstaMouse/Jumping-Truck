@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1cc836515446b46bd41bfda84978cc, type: 3}
   m_Name: Forest
   m_EditorClassIdentifier: 
-  unlockRequirements: 
-  id: eac33599-818d-4312-b84a-de601759177e
-  SceneName: Forest
-  PreviewSprite: {fileID: 21300000, guid: f05b105baa96d1d479ba27025dc417ef, type: 3}
-  Unlocked: 1
+  m_UnlockRequirements: 
+  <Identifier>k__BackingField: b7ff5eee-ea8d-4ee0-a3fe-bf14f661a5f6
+  <SceneName>k__BackingField: Forest
+  <PreviewSprite>k__BackingField: {fileID: 21300000, guid: f05b105baa96d1d479ba27025dc417ef, type: 3}
+  <Unlocked>k__BackingField: 0

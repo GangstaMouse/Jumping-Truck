@@ -1,79 +1,69 @@
-using System.Collections;
-using System.Collections.Generic;
+#if DEVELOPMENT_BUILD || UNITY_EDITOR
 using UnityEngine;
 
-public class FPSCounter : MonoBehaviour
+class FPSCounter : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private float refreshLatency = 0.2f;
+    [SerializeField] private float m_RefreshLatency = 0.2f;
 
-    private float current = 0f;
-    private float average = 0f;
-    private float maximum = 0f;
-    private float minimum = Mathf.Infinity;
+    private float m_Current = 0f;
+    private float m_Average = 0f;
+    private float m_Maximum = 0f;
+    private float m_Minimum = Mathf.Infinity;
 
-    private Display display;
+    private Display m_Display;
 
-    private float time;
-    private int framesPassed;
-    private float totalFrameRate;
-
-    // private Vector2 labelPosition => new Vector2(10, 5);
-    // private Vector2 labelSize => new Vector2(100, 20);
-
-    private void Awake()
-    {
-        if (!Debug.isDebugBuild)
-            Destroy(gameObject);
-    }
+    private float m_Time;
+    private int m_FramesPassed;
+    private float m_TotalFrameRate;
 
     private void Update()
     {
-        time += Time.unscaledDeltaTime;
-        framesPassed ++;
+        m_Time += Time.unscaledDeltaTime;
+        m_FramesPassed ++;
 
-        current = 1f / Time.unscaledDeltaTime;
-        totalFrameRate += current;
-        average = totalFrameRate / framesPassed;
+        m_Current = 1f / Time.unscaledDeltaTime;
+        m_TotalFrameRate += m_Current;
+        m_Average = m_TotalFrameRate / m_FramesPassed;
 
-        if (framesPassed > 10)
+        if (m_FramesPassed > 10)
         {
-            maximum = Mathf.Max(maximum, current);
-            minimum = Mathf.Min(minimum, current);
+            m_Maximum = Mathf.Max(m_Maximum, m_Current);
+            m_Minimum = Mathf.Min(m_Minimum, m_Current);
         }
 
-        if (time < refreshLatency)
+        if (m_Time < m_RefreshLatency)
             return;
 
-        time -= refreshLatency;
+        m_Time -= m_RefreshLatency;
 
-        display.Current = current;
-        display.Average = average;
-        display.Maximum = maximum;
-        display.Minimum = minimum;
+        m_Display = new()
+        {
+            Current = m_Current,
+            Average = m_Average,
+            Maximum = m_Maximum,
+            Minimum = m_Minimum,
+        };
     }
 
     [System.Obsolete("Broken matrix")]
     private void OnGUI()
     {
-        return;
         float scale = ((Screen.width / 1145) + (Screen.height / 644)) / 2f;
         float posY = 5f;
 
-        int targetFrameRate = Application.targetFrameRate;
-
-        Vector3 matrixScale = new Vector3(scale, scale, 1f);
-        GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, matrixScale);
+        Vector3 matrixScale = new(scale, scale, 1f);
+        // GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, matrixScale);
         int offset = 30;
         int initialSpace = (int)Screen.safeArea.position.x + offset;
 
-        GUI.Label(new Rect(initialSpace + 10, posY, 100, 20), $"FPS - {display.Current.ToString("F1")} ({targetFrameRate})");
-        GUI.Label(new Rect(initialSpace + 120, posY, 80, 20), $"Avg - {display.Average.ToString("F1")}");
-        GUI.Label(new Rect(initialSpace + 200, posY, 80, 20), $"Max - {display.Maximum.ToString("F1")}");
-        GUI.Label(new Rect(initialSpace + 280, posY, 80, 20), $"Min - {display.Minimum.ToString("F1")}");
+        GUI.Label(new Rect(initialSpace + 10, posY, 100, 20), $"FPS - {m_Display.Current.ToString("F1")} ({Application.targetFrameRate})");
+        GUI.Label(new Rect(initialSpace + 120, posY, 80, 20), $"Avg - {m_Display.Average.ToString("F1")}");
+        GUI.Label(new Rect(initialSpace + 200, posY, 80, 20), $"Max - {m_Display.Maximum.ToString("F1")}");
+        GUI.Label(new Rect(initialSpace + 280, posY, 80, 20), $"Min - {m_Display.Minimum.ToString("F1")}");
     }
 
-    private struct Display
+    struct Display
     {
         public float Current;
         public float Average;
@@ -81,3 +71,4 @@ public class FPSCounter : MonoBehaviour
         public float Minimum;
     }
 }
+#endif

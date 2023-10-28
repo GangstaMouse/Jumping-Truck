@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Resources/Accessory")]
-public class AccessoryData : BaseItemData
+public class AccessoryData : ItemDataSO
 {
     public string Name;
-    public int Price;
 
     public GameObject Prefab;
+
+    public override string ResourceFolderName => "Acc";
 }

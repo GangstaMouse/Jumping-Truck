@@ -1,23 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class ReverselightEffect : MonoBehaviour
 {
-    // [SerializeField] private Material material;
-
-    private Gearbox gearbox;
-    private Material materialInstance;
+    private Gearbox m_Gearbox;
+    private Material m_Material;
 
     private void Awake()
     {
-        gearbox = GetComponentInParent<Gearbox>();
-        materialInstance = GetComponent<MeshRenderer>().material;
+        m_Gearbox = GetComponentInParent<Gearbox>();
+        m_Material = GetComponent<MeshRenderer>().material;
     }
 
-    private void OnEnable() => gearbox.OnShiftGear += SetIntencity;
-
-    private void OnDisable() => gearbox.OnShiftGear -= SetIntencity;
-
-    private void SetIntencity(int value) => materialInstance.SetFloat("Intensity", value);
+    private void OnEnable() => m_Gearbox.OnChangengGearCompleted += SetIntencity;
+    private void OnDisable() => m_Gearbox.OnChangengGearCompleted -= SetIntencity;
+    private void SetIntencity(int value) => m_Material.SetFloat("Intensity", value == 0 ? 1.0f : 0.0f);
 }

@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(RectTransform))]
 public class SafeArea : MonoBehaviour
 {
-    private ScreenOrientation currentOrientation = ScreenOrientation.AutoRotation;
+    private ScreenOrientation m_CurrentOrientation = ScreenOrientation.AutoRotation;
 
-    private void Awake() => ApplySafeArea();
+    private void Awake() => RefreshSafeArea();
 
-    private void ApplySafeArea()
+    private void RefreshSafeArea()
     {
         RectTransform rect = GetComponent<RectTransform>();
 
@@ -26,13 +24,13 @@ public class SafeArea : MonoBehaviour
         rect.anchorMin = anchorMin;
         rect.anchorMax = anchorMax;
 
-        currentOrientation = Screen.orientation;
+        m_CurrentOrientation = Screen.orientation;
     }
 
     private void Update()
     {
         // Возможно нужно будет добавить проверку на несоответствие safeArea для складных смартфонов
-        if (currentOrientation != Screen.orientation)
-            ApplySafeArea();
+        if (m_CurrentOrientation != Screen.orientation)
+            RefreshSafeArea();
     }
 }

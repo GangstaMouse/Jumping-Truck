@@ -7,7 +7,7 @@ public static class FunctionsLibrary
 {
     public static void GetValuesFromCommand(string command, out string commandName, out string commandData)
     {
-        List<string> substring = new List<string>(command.Split('_'));
+        List<string> substring = new(command.Split('_'));
 
         commandName = substring[0];
         commandData = substring[1];
@@ -15,9 +15,9 @@ public static class FunctionsLibrary
 
     public static List<Material> GetListOfMaterialsByName(GameObject gameObject, string materialName)
     {
-        List<MeshRenderer> meshRenderers = new List<MeshRenderer>(gameObject.GetComponentsInChildren<MeshRenderer>());
+        List<MeshRenderer> meshRenderers = new(gameObject.GetComponentsInChildren<MeshRenderer>());
 
-        List<Material> materials = new List<Material>();
+        List<Material> materials = new();
 
         foreach (var renderer in meshRenderers)
             foreach (var material in renderer.materials)
@@ -29,7 +29,7 @@ public static class FunctionsLibrary
 
     public static Color GetMaterialsMostColor(List<Material> materials)
     {
-        Dictionary<Color, int> colors = new Dictionary<Color, int>();
+        Dictionary<Color, int> colors = new();
 
         foreach (var material in materials)
         {

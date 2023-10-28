@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEngine;
 
-[System.Obsolete]
 public class TerrainTreesColliderFixer : MonoBehaviour
 {
-    private void Awake()
+    private void OnValidate()
     {
         TerrainCollider terrainCollider = GetComponent<TerrainCollider>();
         terrainCollider.enabled = false;
         terrainCollider.enabled = true;
     }
 }
+#endif

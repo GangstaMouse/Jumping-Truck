@@ -12,15 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5613c57f7e4574cae1e050b4e2dfe1, type: 3}
   m_Name: F100
   m_EditorClassIdentifier: 
-  unlockRequirements: 
-  id: 3ab5e5ed-da72-4952-98e2-72d696725377
+  m_UnlockRequirements: 
+  <Identifier>k__BackingField: 88ee181d-b89c-4bdd-b213-0f401a4c432f
+  <Price>k__BackingField: 100
   Name: F100
-  Price: 3485
-  defaultPaintingAsset: {fileID: 11400000, guid: e33ca712d33d0f24e995b313c53474f8, type: 2}
-  Prefab: {fileID: 9064614459495860764, guid: d1bcbf77e7e99c843bdb23162ed8d322, type: 3}
-  AwaliableAccessories:
-    AccessoryData: {fileID: 0}
-    MountKey: 
+  <DefaultPaintAsset>k__BackingField: {fileID: 11400000, guid: 6de848bc6de02bb4781bc075314881f1, type: 2}
+  <Prefab>k__BackingField: {fileID: 9064614459495860764, guid: d1bcbf77e7e99c843bdb23162ed8d322, type: 3}
   Speed: 4.9
   Acceleration: 3.2
   Suspension: 1.9

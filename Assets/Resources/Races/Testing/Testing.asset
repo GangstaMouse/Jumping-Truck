@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b8d81db0a018c4bb31a2503a3d1c26, type: 3}
   m_Name: Testing
   m_EditorClassIdentifier: 
-  unlockRequirements: 
-  id: d8238588-07b7-4a97-8bfa-c2083708bf61
-  RacePrefab: {fileID: 7924150367188235335, guid: 20a05ce1c65a70c4d8ca3ad014d3abba, type: 3}
+  m_UnlockRequirements: 
+  <Identifier>k__BackingField: 43c6eec8-9ca4-4ea4-9a6d-b5aae039791d
+  m_RacePrefab: {fileID: 7924150367188235335, guid: 20a05ce1c65a70c4d8ca3ad014d3abba, type: 3}
   Text: Sprint
   Unlocked: 1
-  GoalValue: time_00:01:00
-  CashReward: 500
-  ExperienceReward: 100
+  m_Goal: time_00:01:00
+  <CashReward>k__BackingField: 500
+  <ExperienceReward>k__BackingField: 100

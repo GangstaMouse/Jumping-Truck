@@ -13,7 +13,7 @@ public class VolumetricWheelCollider : MonoBehaviour
     public float DamperStiffnes;
 
     // Dynamic
-    private List<RaycastHit> hitResults = new List<RaycastHit>();
+    private List<RaycastHit> hitResults = new();
     private float lenght;
     private float previousLength;
     private float suspensionForce;
@@ -34,7 +34,7 @@ public class VolumetricWheelCollider : MonoBehaviour
 
     private void Start()
     {
-        RaycastHit empt = new RaycastHit();
+        RaycastHit empt = new();
 
         RaycastHit t;
 
@@ -52,7 +52,7 @@ public class VolumetricWheelCollider : MonoBehaviour
         float deltaTime = Time.fixedDeltaTime;
 
         Vector3 center = transform.position - (transform.up * lenght);
-        Vector3 boxSize = new Vector3(Width, 0f, (Radius * Mathf.PI) / BoxesCount);
+        Vector3 boxSize = new(Width, 0f, (Radius * Mathf.PI) / BoxesCount);
 
         float minAngle = Mathf.Min(Angle, 360f - (360f / BoxesCount));
         float normalizedAngle = minAngle / 2f;
@@ -74,7 +74,7 @@ public class VolumetricWheelCollider : MonoBehaviour
             Quaternion quaternion = transform.rotation * Quaternion.AngleAxis(-normalizedAngle + segmentAngle, Vector3.right);
 
             // if (Physics.BoxCast(center, boxSize, quaternion * -Vector3.up, out RaycastHit hit, quaternion, distance))
-            List<RaycastHit> boxHits = new List<RaycastHit>(Physics.BoxCastAll(center, boxSize, quaternion * -Vector3.up, quaternion, distance));
+            List<RaycastHit> boxHits = new(Physics.BoxCastAll(center, boxSize, quaternion * -Vector3.up, quaternion, distance));
             RaycastHit hit = GetClosestHit(boxHits);
 
             if (hit.collider != null)
@@ -133,7 +133,7 @@ public class VolumetricWheelCollider : MonoBehaviour
 
     private RaycastHit GetClosestHit(List<RaycastHit> hits)
     {
-        RaycastHit closestHit = new RaycastHit();
+        RaycastHit closestHit = new();
 
         foreach (var hit in hits)
             if (!hit.transform.IsChildOf(transform.root))
@@ -159,14 +159,14 @@ public class VolumetricWheelCollider : MonoBehaviour
 
         // Draw wheel contact point - obsolete
         Gizmos.color = Color.HSVToRGB(37f / 360f, 0.83f, 0.96f);
-        GizmosLibrary.DrawArc(center, transform.right, -transform.up, Radius, 22.5f, 2);
+        GizmosLibrary.DrawAngelArc(center, transform.right, -transform.up, Radius, 22.5f, 2);
 
         // Draw width circles
         Vector3 offset = transform.right * Width;
 
         Gizmos.color = Color.cyan;
-        GizmosLibrary.DrawCircle(center - offset, transform.right, -transform.up, Radius);
-        GizmosLibrary.DrawCircle(center + offset, transform.right, -transform.up, Radius);
+        GizmosLibrary.DrawWiredCircle(center - offset, transform.right, -transform.up, Radius);
+        GizmosLibrary.DrawWiredCircle(center + offset, transform.right, -transform.up, Radius);
 
         // Draw contact points
         Gizmos.color = Color.white;
@@ -179,7 +179,7 @@ public class VolumetricWheelCollider : MonoBehaviour
         float normalizedAngle = minAngle / 2f;
         float anglePerPlane = minAngle / (BoxesCount - 1);
 
-        Vector2 planeSize = new Vector2(Width, (Radius * Mathf.PI) / BoxesCount);
+        Vector2 planeSize = new(Width, (Radius * Mathf.PI) / BoxesCount);
         /* Vector2 planeSize = new Vector2(Width, Radius * (4f / BoxesCount));
         Debug.LogWarning($"PlaneSize {planeSize}"); */
 

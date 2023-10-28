@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d34904de2664e684f8faf462c762e671, type: 3}
+  m_Name: Dark Night
+  m_EditorClassIdentifier: 
+  m_UnlockRequirements: 
+  <Identifier>k__BackingField: 696b6b68-ee19-4cdb-95e8-8346bff9d8ed
+  <Price>k__BackingField: 100
+  <Color>k__BackingField: {r: 0.12188502, g: 0.14157632, b: 0.31132078, a: 1}

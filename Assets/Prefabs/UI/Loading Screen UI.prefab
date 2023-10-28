@@ -292,7 +292,6 @@ GameObject:
   - component: {fileID: 5550760508044864165}
   - component: {fileID: 2196689696840100515}
   - component: {fileID: 5398632616122653637}
-  - component: {fileID: 3475610026646818145}
   m_Layer: 5
   m_Name: Loading Screen UI
   m_TagString: Untagged
@@ -394,16 +393,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0bef772d4dc04546a2ceba75ddd2e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progressBar: {fileID: 9029285561083505280}
---- !u!114 &3475610026646818145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6311951487895623122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b91d03e6441a82f4a99013100e035db3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_ProgressBar: {fileID: 9029285561083505280}

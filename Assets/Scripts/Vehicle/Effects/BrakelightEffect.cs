@@ -1,23 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class BrakelightEffect : MonoBehaviour
 {
-    // [SerializeField] private Material material;
-
-    private CarController carController;
-    private Material materialInstance;
+    private Vehicle m_Vehicle;
+    private Material m_Material;
 
     private void Awake()
     {
-        carController = GetComponentInParent<CarController>();
-        materialInstance = GetComponent<MeshRenderer>().material;
+        m_Vehicle = GetComponentInParent<Vehicle>();
+        m_Material = GetComponent<MeshRenderer>().material;
     }
 
-    private void OnEnable() => carController.OnControlsInputUpdate += SetIntencity;
-
-    private void OnDisable() => carController.OnControlsInputUpdate -= SetIntencity;
-
-    private void SetIntencity() => materialInstance.SetFloat("Intensity", carController.BrakeInput);
+    private void OnEnable() => m_Vehicle.OnLateUpdateVisualEffects += SetIntencity;
+    private void OnDisable() => m_Vehicle.OnLateUpdateVisualEffects -= SetIntencity;
+    private void SetIntencity() => m_Material.SetFloat("Intensity", m_Vehicle.InputHandler.BrakeInput);
 }

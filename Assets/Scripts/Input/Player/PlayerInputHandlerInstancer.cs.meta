@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f73d2670beff14c4483eec59211e9b26
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - <GasInputAction>k__BackingField: {fileID: -8379718596810661875, guid: 570f2f2810a2a6d4ea3c6fc2526be089, type: 3}
+  - <SteerInputAction>k__BackingField: {fileID: 3903210958571696879, guid: 570f2f2810a2a6d4ea3c6fc2526be089, type: 3}
+  - <BrakeInputAction>k__BackingField: {fileID: 4194198582303024833, guid: 570f2f2810a2a6d4ea3c6fc2526be089, type: 3}
+  - <HandbrakeInputAction>k__BackingField: {fileID: -6506176604907247405, guid: 570f2f2810a2a6d4ea3c6fc2526be089, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

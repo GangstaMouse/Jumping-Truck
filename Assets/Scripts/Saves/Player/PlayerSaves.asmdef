@@ -1,0 +1,19 @@
+{
+    "name": "PlayerSaves",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d8b63aba1907145bea998dd612889d6b",
+        "GUID:8fcfd07a06909a54d87807f11a815ffc",
+        "GUID:3b763d25d5e18cf4aa87dec94e260c6a",
+        "GUID:feae4345c109dde4c86905c1690bdd3a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,52 +1,37 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour
+public static class SceneLoader
 {
-    public static SceneLoader instance { get; private set; }
+    public static event Action<float> OnOperationProgress;
+    public static event Action<bool> OnOperationStateChanged;
+    private static AsyncOperation m_Operation;
 
-    private Canvas canvas;
-    private AsyncOperation operation;
-    public event Action<float> OnOperationProgress;
-    // public event Action OnSceneLoaded;
-
-    private void Awake()
+    public static void LoadScene(string sceneName, Action onCompleteLoading = null)
     {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-        canvas = GetComponent<Canvas>();
+        BeginLoad(sceneName, onCompleteLoading);
     }
 
-    public void LoadScene(string sceneName, Action onCompleteLoading = null)
+    public static void ReloadScene(Action onCompleteLoading = null) =>
+        LoadScene(SceneManager.GetActiveScene().name, onCompleteLoading);
+
+    private static async void BeginLoad(string sceneName, Action onCompleteLoading)
     {
-        canvas.enabled = true;
-        StartCoroutine(BeginLoad(sceneName, onCompleteLoading));
-    }
+        m_Operation = SceneManager.LoadSceneAsync(sceneName);
+        OnOperationStateChanged?.Invoke(true);
 
-    public void ReloadScene() => LoadScene(SceneManager.GetActiveScene().name);
-
-    private IEnumerator BeginLoad(string sceneName, Action onCompleteLoading)
-    {
-        operation = SceneManager.LoadSceneAsync(sceneName);
-
-        while (!operation.isDone)
+        while (m_Operation.isDone == false)
         {
-            OnOperationProgress?.Invoke(operation.progress);
-            yield return null;
+            OnOperationProgress?.Invoke(m_Operation.progress);
+            await Task.Yield();
         }
 
-        operation = null;
+        m_Operation = null;
+        OnOperationStateChanged?.Invoke(false);
         OnOperationProgress?.Invoke(0f);
-        canvas.enabled = false;
         onCompleteLoading?.Invoke();
     }
 }

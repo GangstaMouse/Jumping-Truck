@@ -1,56 +1,47 @@
 using System.Text.RegularExpressions;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class PostProcessingManager : MonoBehaviour
 {
-    private VolumeProfile volumeProfile;
-    private Dictionary<string, bool> effects;
+    private VolumeProfile m_VolumeProfile;
+    private Dictionary<string, bool> m_Effects;
 
     private void Awake()
     {
         Volume volume = GetComponent<Volume>();
-        volumeProfile = volume.profile;
+        m_VolumeProfile = volume.profile;
 
         SetEffects();
     }
 
     private void SetEffects()
     {
-        effects = new Dictionary<string, bool>();
-
-        effects.Add("Tonemapping", OptionsDataProcessor.ColorCorrectionValue);
-        effects.Add("ColorAdjustments", OptionsDataProcessor.ColorCorrectionValue);
-        effects.Add("Vignette", OptionsDataProcessor.VignetteValue);
-        effects.Add("Bloom", OptionsDataProcessor.BloomValue);
-
-        // Debug.LogWarning(Regex.IsMatch("Bloon", "Bloom"));
-
-        foreach (var item in volumeProfile.components)
+        m_Effects = new Dictionary<string, bool>
         {
-            /* if (Regex.IsMatch(item.name, "Bloom"))
-                item.active = false; */
+            { "Tonemapping", OptionsSavesManager.SaveData.ColorCorrection },
+            { "ColorAdjustments", OptionsSavesManager.SaveData.ColorCorrection },
+            { "Vignette", OptionsSavesManager.SaveData.Vignette },
+            { "Bloom", OptionsSavesManager.SaveData.Bloom }
+        };
 
-            Debug.LogWarning(item.name);
-
+        foreach (var item in m_VolumeProfile.components)
             item.active = GetVal(item.name);
-        }
 
-        effects.Clear();
+        m_Effects.Clear();
     }
 
     private bool GetVal(string name)
     {
-        foreach (var effectName in effects.Keys)
+        foreach (var effectName in m_Effects.Keys)
             if (Regex.IsMatch(name, effectName))
-                return effects[effectName];
+                return m_Effects[effectName];
 
         return false;
     }
 
-    private void OnEnable() => OptionsDataProcessor.OnOptionChanged += SetEffects;
+    private void OnEnable() => OptionsSavesManager.OnAnyChanges += SetEffects;
 
-    private void OnDisable() => OptionsDataProcessor.OnOptionChanged -= SetEffects;
+    private void OnDisable() => OptionsSavesManager.OnAnyChanges -= SetEffects;
 }
